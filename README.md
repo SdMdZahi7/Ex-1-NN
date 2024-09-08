@@ -1,7 +1,7 @@
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>SYED MUHAMMED ZAHI</H3>
+<H3>212221230114</H3>
 <H3>EX. NO.1</H3>
-<H3>DATE</H3>
+<H3>5/09/2024</H3>
 <H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
 
 ## AIM:
@@ -37,11 +37,79 @@ STEP 5:Normalizing the data<BR>
 STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
-TYPE YOUR CODE HERE
+~~~
+#import libraries
 
+import pandas as pd
+import io
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+
+#Read the dataset from drive
+d=pd.read_csv("Churn_Modelling.csv")
+# Finding Missing Values
+print(d.isnull().sum())
+
+#Check for Duplicates
+print(d.duplicated().sum())
+
+#Detect Outliers
+plt.figure(figsize=(6,4))
+sns.scatterplot(x='Age', y='Exited', data=d)
+plt.title('Scatter plot of Age vs. Exited')
+plt.show()
+
+#Normalize the dataset
+# Create an instance of MinMaxScaler
+scaler = MinMaxScaler()
+
+# Define the columns to be normalized
+columns = ['CreditScore', 'Age', 'Tenure', 'Balance', 'NumOfProducts', 'EstimatedSalary']
+
+# Normalize the specified columns
+d[columns] = scaler.fit_transform(d[columns])
+
+# Display the normalized dataset
+print("NORMALIZED DATASET\n",d)
+
+#split the dataset into input and output
+X = d.iloc[:,:-1].values
+print("INPUT(X)\n",X)
+y = d.iloc[:,-1].values
+print("OUTPUT(y)\n",y)
+
+#splitting the data for training & Testing
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+print("X_train\n")
+print(X_train)
+print("\nLenght of X_train ",len(X_train))
+print("\nX_test\n")
+print(X_test)
+print("\nLenght of X_test ",len(X_test))
+~~~
 
 ## OUTPUT:
-SHOW YOUR OUTPUT HERE
+### Missing Values:
+![image](https://github.com/user-attachments/assets/3cc135b3-4bda-40d6-bda3-f554be307b8e)
+### Duplicates:
+![image](https://github.com/user-attachments/assets/0117f970-0d7d-40da-9d6c-5302d86e5f3b)
+### Outliers:
+![image](https://github.com/user-attachments/assets/99973f1b-6079-47a7-912f-43c5e74f3476)
+### Normalized dataset:
+![image](https://github.com/user-attachments/assets/29864afa-dafe-4c27-8012-efc42ceea927)
+### Input and Output:
+![image](https://github.com/user-attachments/assets/876f59ce-2148-495c-8df6-19a72aa7e0e7)
+### Training and Testing data:
+![image](https://github.com/user-attachments/assets/bab9bcdc-9f3b-48a2-9bae-1360ce6164f7)
+
+
+
+
+
 
 
 ## RESULT:
